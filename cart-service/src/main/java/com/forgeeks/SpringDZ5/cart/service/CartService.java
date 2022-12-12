@@ -34,4 +34,6 @@ public class CartService {
         ProductDto product = productServiceIntegration.findById(id);
         tempCart.remove(product);
     }
+
+
 }
