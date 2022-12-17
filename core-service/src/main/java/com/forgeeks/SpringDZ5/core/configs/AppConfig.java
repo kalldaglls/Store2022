@@ -4,12 +4,14 @@ import org.springframework.context.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@PropertySource("secrets.properties")
-@EnableAspectJAutoProxy
-@ComponentScan("com.forgeeks.SpringDZ5")
+//@PropertySource("secrets.properties")
+//@EnableAspectJAutoProxy
+//@ComponentScan("com.forgeeks.SpringDZ5")
 public class AppConfig {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
+
+
 }

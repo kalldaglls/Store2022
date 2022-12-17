@@ -1,9 +1,10 @@
-package com.forgeeks.SpringDZ5.core.utils;
+package com.forgeeks.SpringDZ5.auth.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -16,11 +17,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
+//@PropertySource(value = {"classpath:application.yaml"})
 public class JwtTokenUtil {
-    @Value("${jwt.secret}")
+    @Value("h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g")
     private String secret;
 
-    @Value("${jwt.lifetime}")
+    @Value("3600000")
     private Integer jwtLifetime;
 
     public String generateToken(UserDetails userDetails) {
@@ -31,13 +33,13 @@ public class JwtTokenUtil {
         claims.put("roles", rolesList);
 
         Date issuedDate = new Date();
-        Date expiredDate = new Date(issuedDate.getTime() + jwtLifetime);
+        Date expiredDate = new Date(issuedDate.getTime() + 3600000);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(issuedDate)
                 .setExpiration(expiredDate)
-                .signWith(SignatureAlgorithm.HS256, secret)
+                .signWith(SignatureAlgorithm.HS256, "h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g")
                 .compact();
     }
 
@@ -56,7 +58,7 @@ public class JwtTokenUtil {
 
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
-                .setSigningKey(secret)
+                .setSigningKey("h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g")
                 .parseClaimsJws(token)
                 .getBody();
     }

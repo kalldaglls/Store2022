@@ -1,10 +1,11 @@
-package com.forgeeks.SpringDZ5.core.configs;
+package com.forgeeks.SpringDZ5.auth.configs;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,11 +15,11 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final JwtRequestFilter jwtRequestFilter;
+//    private final JwtRequestFilter jwtRequestFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -30,9 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/api/v1/profile").authenticated()
 //                .antMatchers("/h2-console/**").permitAll()//Разрешаем всем доступ к консоли!
 //                .antMatchers("/api/v1/cart").authenticated()
-                .antMatchers("/api/v1/user").authenticated()
-                .antMatchers("app-core/auth/about").authenticated()
-                .antMatchers("/api/v1/orders/**").authenticated()
+//                .antMatchers("/api/v1/user").authenticated()
+//                .antMatchers("app-core/auth/about").authenticated()
+//                .antMatchers("/api/v1/orders/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//отключаем сессии и сохранение состояния именно для безопасности!
@@ -42,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()//обработка исключений!
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

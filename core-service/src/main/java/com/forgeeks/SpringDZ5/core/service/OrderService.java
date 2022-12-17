@@ -4,19 +4,15 @@ import com.forgeeks.SpringDZ5.core.converters.OrderConverter;
 import com.forgeeks.SpringDZ5.core.entities.Order;
 import com.forgeeks.SpringDZ5.core.entities.OrderItem;
 import com.forgeeks.SpringDZ5.core.entities.Product;
-import com.forgeeks.SpringDZ5.core.entities.User;
 import com.forgeeks.SpringDZ5.core.exceptions.ResourceNotFoundException;
 import com.forgeeks.SpringDZ5.core.integrations.CartServiceIntegration;
 import com.forgeeks.SpringDZ5.core.repositories.OrderRepository;
 import com.forgeeks.api.CartDto;
 import com.forgeeks.api.CartItemDto;
-import com.forgeeks.api.OrderDto;
-import com.forgeeks.api.OrderItemDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.nio.file.ReadOnlyFileSystemException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,18 +22,18 @@ import java.util.List;
 public class OrderService {
     private final ProductService productService;
     private final OrderRepository orderRepository;
-    private final UserService userService;
+//    private final UserService userService;
     private final CartServiceIntegration cartServiceIntegration;
     private final OrderConverter orderConverter;
 
     @Transactional
     public void createOrder(Principal principal) {
-        User user = userService.findByUsername(principal.getName()).get();
+//        User user = userService.findByUsername(principal.getName()).get();
         //Сделать CartDto?
         CartDto cartDto = cartServiceIntegration.getCurrentCart();
 
         Order order = new Order();
-        order.setUser(user);
+//        order.setUser(user);
         order.setTotalPrice(cartDto.getTotalPrice());
 
         List<OrderItem> orderItemList = new ArrayList<>();

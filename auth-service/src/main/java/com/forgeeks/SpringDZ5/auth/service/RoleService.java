@@ -1,7 +1,7 @@
-package com.forgeeks.SpringDZ5.core.service;
+package com.forgeeks.SpringDZ5.auth.service;
 
-import com.forgeeks.SpringDZ5.core.entities.Role;
-import com.forgeeks.SpringDZ5.core.repositories.RoleRepository;
+import com.forgeeks.SpringDZ5.auth.entities.Role;
+import com.forgeeks.SpringDZ5.auth.repositories.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

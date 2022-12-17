@@ -1,8 +1,8 @@
-package com.forgeeks.SpringDZ5.core.service;
+package com.forgeeks.SpringDZ5.auth.service;
 
-import com.forgeeks.SpringDZ5.core.entities.Role;
-import com.forgeeks.SpringDZ5.core.entities.User;
-import com.forgeeks.SpringDZ5.core.repositories.UserRepository;
+import com.forgeeks.SpringDZ5.auth.entities.Role;
+import com.forgeeks.SpringDZ5.auth.entities.User;
+import com.forgeeks.SpringDZ5.auth.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,8 +36,8 @@ public class UserService implements UserDetailsService {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
-//    public UserDetails findByUserId(Long id) {
-//        UserDetails user = findByUserId(id);
-//        return user;
-//    }
+    public UserDetails findByUserId(Long id) {
+        UserDetails user = findByUserId(id);
+        return user;
+    }
 }
