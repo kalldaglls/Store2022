@@ -2,6 +2,7 @@ package com.forgeeks.SpringDZ5.core.controllers;
 
 import com.forgeeks.SpringDZ5.core.utils.AspectApp;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/statistic")
 @RequiredArgsConstructor
+//@CrossOrigin("*")
 public class StatisticsController {
     public final AspectApp aspectApp;
 
