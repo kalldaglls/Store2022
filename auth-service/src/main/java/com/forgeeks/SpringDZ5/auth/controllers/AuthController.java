@@ -41,8 +41,9 @@ public class AuthController {
     }
 
     @GetMapping("/about")
-    public UserInfoDto getCurrentUserInfo(Principal principal){
+    public UserInfoDto.UserInfoDtoBuilder getCurrentUserInfo(Principal principal){
         User user = userService.findByUsername(principal.getName()).get();
-        return new UserInfoDto(user.getUsername() + " " +   user.getEmail());
+        return UserInfoDto.builder()
+                .value(user.getUsername() + " " +   user.getEmail());
     }
 }
