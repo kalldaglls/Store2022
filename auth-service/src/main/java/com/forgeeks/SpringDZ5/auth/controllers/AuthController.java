@@ -1,9 +1,9 @@
-package com.forgeeks.SpringDZ5.core.controllers;
+package com.forgeeks.SpringDZ5.auth.controllers;
 
 
-import com.forgeeks.SpringDZ5.core.entities.User;
-import com.forgeeks.SpringDZ5.core.service.UserService;
-import com.forgeeks.SpringDZ5.core.utils.JwtTokenUtil;
+import com.forgeeks.SpringDZ5.auth.entities.User;
+import com.forgeeks.SpringDZ5.auth.service.UserService;
+import com.forgeeks.SpringDZ5.auth.utils.JwtTokenUtil;
 import com.forgeeks.api.JwtRequest;
 import com.forgeeks.api.JwtResponse;
 import com.forgeeks.api.UserInfoDto;
@@ -20,13 +20,14 @@ import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+//@RequestMapping("/auth")
+//@CrossOrigin("*")
 public class AuthController {
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
 
-    @PostMapping
+    @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));

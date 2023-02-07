@@ -1,11 +1,11 @@
 server:
-  port: 8080
+  port: 8188
   servlet:
-    context-path: /app-core
+    context-path: /app-auth
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:springMarket-core;MODE=PostgreSQL
+    url: jdbc:h2:mem:springMarket-auth;MODE=PostgreSQL
     username: sa
     password:
   jpa:
@@ -19,9 +19,9 @@ spring:
       settings:
         web-allow-others: false
 
-#  jwt:
-#    secret: h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g
-#    lifetime: 3600000
+  jwt:
+    secret: h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g
+    lifetime: 3600000
 
 #  flyway:
 #    locations=filesystem:db/migration:

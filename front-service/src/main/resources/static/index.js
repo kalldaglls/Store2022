@@ -1,5 +1,4 @@
 angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage, $sessionStorage) {
-    const contextPath = 'http://localhost:8080/app-core/api/v1';
 
     if ($localStorage.springWebUser) {
         try {
@@ -14,11 +13,13 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         } catch (e) {
         }
 
-        $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.springWebUser.token;
+        if ($localStorage.springWebUser) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.springWebUser.token;
+        }
     }
 
     $scope.loadProducts = function () {
-        $http.get('http://localhost:8080/app-core/api/v1/products')
+        $http.get('http://localhost:5555/core/api/v1/products')
             .then(function (response) {
                 $scope.productList = response.data;
                 // console.log(response);
@@ -26,7 +27,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     };
 
     $scope.deleteProduct = function (id) {
-        $http.delete('http://localhost:8080/app-core/api/v1/products/' + id)
+        $http.delete('http://localhost:5555/core/api/v1/products/' + id)
             .then(function (response) {
                 $scope.loadProducts();
             });
@@ -34,7 +35,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.createNewProduct = function () {
         // console.log($scope.newProduct);
-        $http.post('http://localhost:8080/app-core/api/v1/products', $scope.newProduct)
+        $http.post('http://localhost:5555/core/api/v1/products', $scope.newProduct)
             .then(function (response) {
                 $scope.newProduct = null;
                 $scope.loadProducts();
@@ -56,7 +57,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     // };
 
     $scope.tryToAuth = function () {
-        $http.post('http://localhost:8080/app-core/auth', $scope.user)
+        $http.post('http://localhost:5555/auth/authenticate', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
                     //Подшиваем токен ко всем запросам на бэк!
@@ -103,41 +104,41 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         }
     };
 
-    $scope.showCurrentUserInfo = function () {
-        $http.get('http://localhost:8080/app-core/auth/about')
-            .then(function (response) {
-                alert(response.data.value);
-            });
-            // .then(function successCallback(response) {
-            //     alert('MY NAME IS: ' + response.data.username);
-            // }, function errorCallback(response) {
-            //     alert('UNAUTHORIZED');
-            // });
-    };
+    // $scope.showCurrentUserInfo = function () {
+    //     $http.get('http://localhost:5555/auth/api/v1/userdata/user' + id)
+    //         .then(function (response) {
+    //             alert(response.data.value);
+    //         });
+    //         // .then(function successCallback(response) {
+    //         //     alert('MY NAME IS: ' + response.data.username);
+    //         // }, function errorCallback(response) {
+    //         //     alert('UNAUTHORIZED');
+    //         // });
+    // };
 
     $scope.loadCart = function () {
-        $http.get('http://localhost:8088/app-cart/api/v1/cart/')
+        $http.get('http://localhost:5555/cart/api/v1/cart/')
             .then(function (response) {
                 $scope.cart = response.data;
             });
     }
 
     $scope.addToCart = function (id) {
-        $http.get('http://localhost:8088/app-cart/api/v1/cart/add/' + id)
+        $http.get('http://localhost:5555/cart/api/v1/cart/add/' + id)
             .then(function (response) {
                 $scope.loadCart();
          });
     }
 
     $scope.deleteFromCart = function (id) {
-        $http.delete('http://localhost:8088/app-cart/api/v1/cart/delete/' + id)
+        $http.delete('http://localhost:5555/cart/api/v1/cart/delete/' + id)
             .then(function (response) {
                 $scope.loadCart();
             });
     }
 
     $scope.createOrder = function () {
-        $http.post('http://localhost:8080/app-core/api/v1/orders', $scope.newOrder)
+        $http.post('http://localhost:5555/core/api/v1/orders', $scope.newOrder)
             .then(function (response) {
                 $scope.newOrder= null;
                 $scope.clearCart;
@@ -145,7 +146,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     }
 
     $scope.clearCart = function () {
-        $http.delete('http://localhost:8088/app-cart/api/v1/cart/deleteCart/')
+        $http.delete('http://localhost:5555/cart/api/v1/cart/deleteCart/')
             .then(function (response) {
             alert(response.toString());
         });

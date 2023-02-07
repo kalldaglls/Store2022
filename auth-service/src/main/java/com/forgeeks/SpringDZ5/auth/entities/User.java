@@ -1,4 +1,4 @@
-package com.forgeeks.SpringDZ5.core.entities;
+package com.forgeeks.SpringDZ5.auth.entities;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

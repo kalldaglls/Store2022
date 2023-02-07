@@ -10,10 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/products")
 @RequiredArgsConstructor
+//@CrossOrigin("*")
 public class ProductController {
     private final ProductService productService;
     private final ProductConverter productConverter;
@@ -35,11 +37,12 @@ public class ProductController {
 //}
     @GetMapping
     public List<ProductDto> getAllProducts() {
-        List<Product> products = productService.findAll();
-//        System.out.println(products);
-//        System.out.println(products);
-//        return (List<ProductDto>) productConverter.entityToDto((Product) products);
-        return productConverter.entityListToDtoList(products);
+//        List<Product> products = productService.findAll();
+////        System.out.println(products);
+////        System.out.println(products);
+////        return (List<ProductDto>) productConverter.entityToDto((Product) products);
+//        return productConverter.entityListToDtoList(products);
+        return productService.findAll().stream().map(productConverter::entityToDto).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
