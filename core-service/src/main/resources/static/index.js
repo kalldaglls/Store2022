@@ -137,7 +137,18 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     }
 
     $scope.createOrder = function () {
+        $http.post('http://localhost:8080/app-core/api/v1/orders', $scope.newOrder)
+            .then(function (response) {
+                $scope.newOrder= null;
+                $scope.clearCart;
+            });
+    }
 
+    $scope.clearCart = function () {
+        $http.delete('http://localhost:8088/app-cart/api/v1/cart/deleteCart/')
+            .then(function (response) {
+            alert(response.toString());
+        });
     }
 
     $scope.loadProducts();
