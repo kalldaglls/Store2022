@@ -22,15 +22,15 @@ import java.util.concurrent.TimeUnit;
         ProductServiceIntegrationProperties.class
 )
 public class AppCartConfig {
-//    @Bean
-//    public RestTemplate restTemplate() {
-//        return new RestTemplate();
-//    }
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
     private final ProductServiceIntegrationProperties productServiceIntegrationProperties;
 
     @Bean
-    public WebClient productServiceWebClient() {
+    public WebClient cartServiceWebClient() {
         TcpClient tcpClient = TcpClient
                 .create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, productServiceIntegrationProperties.getConnectTimeout())

@@ -73,7 +73,8 @@ public class ProductController {
 //        return productConverter.entityToDto(product);
 //    }
 
-    @DeleteMapping("/{id}")
+//    @DeleteMapping("/{id}")
+    @GetMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         productService.deleteById(id);
     }
