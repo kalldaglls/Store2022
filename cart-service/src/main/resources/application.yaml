@@ -3,9 +3,9 @@ server:
   servlet:
     context-path: /app-cart
 
-    integrations:
-      product-service:
-        url: http://localhost:8080/app-core/
-        connect-timeout: 5000
-        read-timeout: 10000
-        write-timeout: 5000
+integrations:
+ product-service:
+  url: http://localhost:8080/app-core/
+  connect-timeout: 5000
+  read-timeout: 10000
+  write-timeout: 5000

@@ -1,7 +1,7 @@
 server:
-  port: 8080
+  port: 8012
   servlet:
-    context-path: /app-core
+    context-path: /app-core2
 spring:
   datasource:
     driver-class-name: org.h2.Driver
@@ -18,5 +18,5 @@ spring:
       enabled: true
       settings:
         web-allow-others: false
-  flyway:
-    locations: classpath:/db/migration/test
+#  flyway:
+#    locations: classpath:/db/migration/test

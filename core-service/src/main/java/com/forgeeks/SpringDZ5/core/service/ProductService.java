@@ -23,7 +23,7 @@ public class ProductService {
 
     private final ProductRep productRep;
     private final CategoryService categoryService;
-    private final RedisTemplate<Long, Product> redisTemplate;
+//    private final RedisTemplate<Long, Product> redisTemplate;
 //    private final List<Optional<Product>> productList = new ArrayList<>();
 
     public Page<Product> find(Integer minPrice, Integer maxPrice, String titlePart, Integer page){
@@ -56,8 +56,8 @@ public class ProductService {
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         product.setCategory(categoryService.findByTitle(productDto.getCategoryTitle()).orElseThrow(() -> new ResourceNotFoundException("Категория с названием: " + productDto.getCategoryTitle() + " не найдена")));
-//        productRep.save(product);
-        redisTemplate.opsForValue().set(product.getId(), product);
+        productRep.save(product);
+//        redisTemplate.opsForValue().set(product.getProductId(), product);
     }
     public Product save(Product product) {
         return productRep.save(product);

@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("test")
 public class FullServerRunCartTest {
     @Autowired
@@ -24,7 +24,7 @@ public class FullServerRunCartTest {
 
     @Test
     public void fullRestTest() {
-        ProductDto product = restTemplate.getForObject("app-core/api/v1/products/" + 1l, ProductDto.class);
+        ProductDto product = restTemplate.getForObject("http://localhost:8080/app-core/api/v1/products/" + 1l, ProductDto.class);
         System.out.println(product);
 //        ProductDto product = productServiceWebClient.get()
 //                .uri("/api/v1/products/" + 1l)

@@ -12,21 +12,21 @@ import java.util.List;
 @Component
 public class ProductConverter {
     public Product dtoToEntity(ProductDto productDto) {
-//        System.out.println("DTO id: " + productDto.getId());
+//        System.out.println("DTO id: " + productDto.getProductId());
 //        System.out.println("ProductDto: " + productDto);
 //        Product product = new Product();
-//        System.out.println("PROD id: " + product.getId());
+//        System.out.println("PROD id: " + product.getProductId());
 //        product.setTitle(productDto.getTitle());
 //        product.setPrice(productDto.getPrice());
 //        product.setSecretKey(productDto.getSecretKey());
 //        System.out.println(product);
         Category category = new Category();
         category.setTitle(productDto.getCategoryTitle());
-        return new Product(productDto.getId(), productDto.getPrice(), category, productDto.getTitle());
+        return new Product(productDto.getId(), productDto.getPrice(),category, productDto.getTitle());
     }
 
 //    public ProductDto entityToDto(Product product) {
-//        return new ProductDto(product.getId(), product.getTitle(), product.getPrice(), product.getCategory().getTitle());
+//        return new ProductDto(product.getProductId(), product.getTitle(), product.getPrice(), product.getCategory().getTitle());
 //    }
 
     public ProductDto entityToDto(Product p) {

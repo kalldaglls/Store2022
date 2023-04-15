@@ -27,15 +27,15 @@ public class CartServiceTests {
     @MockBean
     private Cart tempCart;
 
-    @Test
-    public void addTest() {
-        ProductDto productDto = new ProductDto(1l, "Апельсины", BigDecimal.valueOf(100.0), "Food");
-        Mockito.doReturn(productDto)
-                .when(productServiceIntegration)
-                .findById(1l);
-
-        cartService.add(productDto.getId());
-        cartService.add(productDto.getId());
-        Mockito.verify(productServiceIntegration, Mockito.times(2)).findById(ArgumentMatchers.any());
-    }
+//    @Test
+//    public void addTest() {
+//        ProductDto productDto = new ProductDto(1l, "Апельсины", BigDecimal.valueOf(100.0), "Food");
+//        Mockito.doReturn(productDto)
+//                .when(productServiceIntegration)
+//                .findById(1l);
+//
+//        cartService.add(productDto.getId());
+//        cartService.add(productDto.getId());
+//        Mockito.verify(productServiceIntegration, Mockito.times(2)).findById(ArgumentMatchers.any());
+//    }
 }

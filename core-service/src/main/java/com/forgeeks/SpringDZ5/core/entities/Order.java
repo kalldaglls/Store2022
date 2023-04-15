@@ -20,7 +20,6 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
-
     @Column(name = "username")
     private String username;
 

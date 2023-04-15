@@ -42,6 +42,7 @@ public class AppCartConfig {
         return WebClient
                 .builder()
                 .baseUrl(productServiceIntegrationProperties.getUrl())
+//                .baseUrl("http://localhost:8080/app-core/")
                 .clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
                 .build();
     }
