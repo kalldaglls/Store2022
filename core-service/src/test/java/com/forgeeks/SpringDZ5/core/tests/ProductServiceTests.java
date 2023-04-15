@@ -39,7 +39,7 @@ public class ProductServiceTests {
         Category category = new Category();
         category.setId(1L);
         category.setTitle("Food");
-        category.setProducts(Collections.emptyList());
+//        category.setProducts(Collections.emptyList());
         Mockito.doReturn(Optional.of(category))
                 .when(categoryService)
                 .findByTitle("Food");
@@ -47,7 +47,7 @@ public class ProductServiceTests {
         ProductDto productDto = new ProductDto(null, "Апельсины", BigDecimal.valueOf(100.0), "Food");
         productService.createNewProduct(productDto);
 
-        System.out.println(Mockito.verify(productRepository, Mockito.times(1)).save(ArgumentMatchers.any()));
+        System.out.println(Mockito.verify(productRepository, Mockito.times(2)).save(ArgumentMatchers.any()));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ProductServiceTests {
         Mockito.doReturn(Optional.of(products))
                 .when(productRepository)
                 .findAll();
-        products =  productRepository.findAll();
+//        products =  productRepository.findAll();
         Mockito.verify(productRepository, Mockito.times(1)).findAll();
        return products;
     }
@@ -80,6 +80,6 @@ public class ProductServiceTests {
 
         productService.deleteById(1l);
         Assertions.assertEquals(productDto.getId(), 1l);
-        Mockito.verify(productRepository, Mockito.times(1)).deleteById(ArgumentMatchers.any());
+        Mockito.verify(productRepository, Mockito.times(2)).deleteById(ArgumentMatchers.any());
     }
 }

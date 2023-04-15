@@ -50,7 +50,7 @@ public class FullServerRunTest {
 //                .isNotEmpty()
 //                .hasSize(4);
 //        assertThatExceptionOfType(ClassCastException.class)
-//                .isThrownBy(() -> list.get(0).getId())
+//                .isThrownBy(() -> list.get(0).getProductId())
 //                .withMessageMatching(".*java.util.LinkedHashMap cannot be cast to .*com.forgeeks.api.ProductDto.*");
         Assertions.assertEquals(list.get(0).getId(), productDto.getId());
     }

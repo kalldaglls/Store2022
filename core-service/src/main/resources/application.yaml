@@ -18,17 +18,16 @@ spring:
       enabled: true
       settings:
         web-allow-others: false
-
-  integrations:
-    cart-service:
-      url: http://localhost:8088/app-cart/
-      connect-timeout: 5000
-      read-timeout: 10000
-      write-timeout: 5000
+integrations:
+ cart-service:
+  url: http://localhost:8088/app-cart/
+  connect-timeout: 500
+  read-timeout: 10000
+  write-timeout: 5000
 
 #  jwt:
 #    secret: h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g
 #    lifetime: 3600000
 
-#  flyway:
-#    locations=filesystem:db/migration:
+#flyway:
+#  locations: classpath:/db/migration/v1__init.sql

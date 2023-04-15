@@ -21,7 +21,7 @@ public class JsonTests {
         Category category = new Category();
         category.setId(1L);
         category.setTitle("Food");
-        category.setProducts(Collections.emptyList());
+//        category.setProducts(Collections.emptyList());
         // {
         //   "id": 1,
         //   "title": "Food"
@@ -46,7 +46,7 @@ public class JsonTests {
         Category expectedCategory = new Category();
         expectedCategory.setId(2L);
         expectedCategory.setTitle("Food");
-        expectedCategory.setProducts(Collections.emptyList());
+//        expectedCategory.setProducts(Collections.emptyList());
 
         assertThat(jackson.parse(content)).isEqualTo(expectedCategory);
         assertThat(jackson.parseObject(content).getTitle()).isEqualTo("Food");

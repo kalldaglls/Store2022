@@ -20,7 +20,7 @@ public class MyCart {
            }
        }
 //        for (Product p: productList) {
-//            if (p.getId() == id){
+//            if (p.getProductId() == id){
 //                productList.remove(p);
 //            }
 //        }

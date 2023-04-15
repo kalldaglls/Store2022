@@ -15,26 +15,26 @@ public class ProductServiceIntegration {
     private final RestTemplate restTemplate;
     private final WebClient productServiceWebClient;
 
-    public ProductDto findById(Long id) {
-        return restTemplate.getForObject("http://localhost:8080/app-core/api/v1/products/" + id, ProductDto.class);
-
-    }
-
 //    public ProductDto findById(Long id) {
-//        return productServiceWebClient.get()
-//                .uri("/api/v1/products/" + id)
-//                .retrieve()
-//                .onStatus(httpStatus -> httpStatus.value() == HttpStatus.NOT_FOUND.value(),
-//                        clientResponse -> Mono.error(new ResourceNotFoundException("Товар не найден")))
-//                .onStatus(httpStatus -> httpStatus.value() == HttpStatus.INTERNAL_SERVER_ERROR.value(),
-//                        clientResponse -> Mono.error(new ResourceNotFoundException("500")))
-//                .bodyToMono(ProductDto.class)
-//                .block();
+//        return restTemplate.getForObject("http://localhost:8080/app-core/api/v1/products/" + id, ProductDto.class);
+//
 //    }
+
+    public ProductDto findById(Long id) {
+        return productServiceWebClient.get()
+                .uri("/api/v1/products/" + id)
+                .retrieve()
+                .onStatus(httpStatus -> httpStatus.value() == HttpStatus.NOT_FOUND.value(),
+                        clientResponse -> Mono.error(new ResourceNotFoundException("Товар не найден")))
+                .onStatus(httpStatus -> httpStatus.value() == HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                        clientResponse -> Mono.error(new ResourceNotFoundException("500")))
+                .bodyToMono(ProductDto.class)
+                .block();
+    }
 
 //    public void clear(String username) {
 //        productServiceWebClient.get()
-//                .uri("/api/v1/cart/0/clear")
+//                .uri("/api/v1/cart/clear")
 //                .header("username", username)
 //                .retrieve()
 //                .toBodilessEntity()

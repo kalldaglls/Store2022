@@ -3,9 +3,12 @@ package com.forgeeks.SpringDZ5.cart.controllers;
 import com.forgeeks.SpringDZ5.cart.converters.CartConverter;
 import com.forgeeks.SpringDZ5.cart.service.CartService;
 import com.forgeeks.api.CartDto;
+import com.forgeeks.api.StringResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+//Закончил 2:00
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
@@ -14,19 +17,40 @@ public class CartController {
     private final CartService cartService;
     private final CartConverter cartConverter;
 
-    @GetMapping("/add/{id}")
-    public void addToCart(@PathVariable Long id) {
-        cartService.add(id);
-        System.out.println(cartService.getCurrentCart());
+    @GetMapping("/generate_id")
+    public StringResponse generateGuestCartId() {
+        return new StringResponse(UUID.randomUUID().toString());
     }
 
-    @GetMapping
-    public CartDto getCurrentCart() {
-        return cartConverter.entityToDto(cartService.getCurrentCart());
+    @GetMapping("/{guestCartId}/add/{productId}")
+    public void addToCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId, @PathVariable Long productId) {
+        String currentCartId = selectCartId(username, guestCartId);
+        cartService.add(currentCartId, productId);
+//        System.out.println(cartService.getCurrentCart());
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteFromCart(@PathVariable Long id) {
-        cartService.delete(id);
+    @GetMapping("/{guestCartId}")
+    public CartDto getCurrentCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId) {
+        String currentCartId = selectCartId(username, guestCartId);
+        return cartConverter.entityToDto(cartService.getCurrentCart(currentCartId));
+    }
+
+    @GetMapping("/{guestCartId}/clear")
+    public void clearCurrentCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId) {
+        String currentCartId = selectCartId(username, guestCartId);
+        cartService.clearCart(currentCartId);
+    }
+
+    @DeleteMapping("/{guestCartId}/delete/{id}")
+    public void deleteFromCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId, @PathVariable Long productId) {
+        String currentCartId = selectCartId(username, guestCartId);
+        cartService.delete(currentCartId, productId);
+    }
+
+    private String selectCartId(String username, String guestCartId) {
+        if (username != null) {
+            return username;
+        }
+        return guestCartId;
     }
 }

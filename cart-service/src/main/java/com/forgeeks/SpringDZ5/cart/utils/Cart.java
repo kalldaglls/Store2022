@@ -16,6 +16,7 @@ public class Cart {
 
     public Cart() {
         this.items = new ArrayList<>();
+        this.totalPrice = BigDecimal.ZERO;
     }
 
     public List<CartItem> getItems() {
@@ -40,7 +41,7 @@ public class Cart {
     }
 
 //    public void add(Product product) {
-//        items.add(new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice()));
+//        items.add(new CartItem(product.getProductId(), product.getTitle(), 1, product.getPrice(), product.getPrice()));
 //        recalculate();
 //    }
 
@@ -49,7 +50,7 @@ public class Cart {
         items.remove(cartItem);
         recalculate();
         for (CartItem item : items) {
-//            if (item.getProductId().equals(p.getId()) && item.getQuantity() <= 1) {
+//            if (item.getProductId().equals(p.getProductId()) && item.getQuantity() <= 1) {
 //                items.clear();
 //                break;
 //            }
@@ -64,5 +65,10 @@ public class Cart {
     private void recalculate() {
         totalPrice = BigDecimal.ZERO;
         items.forEach(i -> totalPrice = totalPrice.add(i.getPrice()));
+    }
+
+    public void clear() {
+        items.clear();
+        totalPrice = BigDecimal.ZERO;
     }
 }

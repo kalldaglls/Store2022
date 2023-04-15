@@ -22,45 +22,36 @@ import java.util.List;
 public class OrderService {
     private final ProductService productService;
     private final OrderRepository orderRepository;
-//    private final UserService userService;
     private final CartServiceIntegration cartServiceIntegration;
-    private final OrderConverter orderConverter;
 
     @Transactional
-    public void createOrder(Principal principal) {
-//        User user = userService.findByUsername(principal.getName()).get();
-        //Сделать CartDto?
-        CartDto cartDto = cartServiceIntegration.getCurrentCart();
-
-        Order order = new Order();
-//        order.setUser(user);
-        order.setTotalPrice(cartDto.getTotalPrice());
-
-        List<OrderItem> orderItemList = new ArrayList<>();
-
-        for (CartItemDto cartItemDto : cartDto.getItems()) {
-            OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            orderItem.setPrice(cartItemDto.getPrice());
-            orderItem.setQuantity(cartItemDto.getQuantity());
-            orderItem.setPricePerProduct(cartItemDto.getPricePerProduct());
-            Product product = productService.findById(cartItemDto.getProductId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Продукт не найден"));
-            orderItem.setProduct(product);
-            orderItemList.add(orderItem);
+    public void createOrder(String username) {
+        CartDto cartDto = cartServiceIntegration.getCurrentCart(username);
+        if (cartDto.getItems().isEmpty()) {
+            throw new IllegalStateException("Нельзя оформить заказ для пустой корзины");
         }
 
-        order.setItems(orderItemList);
-        orderRepository.save(order);
-        System.out.println("YEAH!");
-//      cartServiceIntegration.clearCart();
+        Order order = new Order();
+        order.setTotalPrice(cartDto.getTotalPrice());
+        order.setUsername(username);
+        order.setItems(new ArrayList<>());
 
-//        List<CartItemDto> cartItemDtoList = cartServiceIntegration.getCurrentCart(1l).getItems();
-//        OrderDto orderDto = new OrderDto();
-////        orderDto.setUserInfoDto(user);
-//        orderDto.setItems(new ArrayList<>());
-//        orderDto.setTotalPrice(null);
-//        orderRepository.save(orderDto);
-//        return orderDto;
+        cartDto.getItems().forEach(ci -> {
+            OrderItem oi = new OrderItem();
+            oi.setOrder(order);
+            oi.setPrice(ci.getPrice());
+            oi.setQuantity(ci.getQuantity());
+            oi.setPricePerProduct(ci.getPricePerProduct());
+            oi.setProduct(productService.findById(ci.getProductId()).orElseThrow(() -> new ResourceNotFoundException("Product not found")));
+            order.getItems().add(oi);
+        });
+        orderRepository.save(order);
+
+        cartServiceIntegration.clearCart(username);
+        this.findUserOrders(username);
+    }
+
+    public List<Order> findUserOrders(String username){
+        return orderRepository.findAllByUsername(username);
     }
 }
